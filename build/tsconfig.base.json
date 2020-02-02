@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "allowSyntheticDefaultImports": true,
+        "strictPropertyInitialization": false,
+        "esModuleInterop": true,
+        "moduleResolution": "Node",
+        "resolveJsonModule": true,
+        "noEmitHelpers": false,
+        "importHelpers": true,
+        "noResolve": false,
+        "sourceMap": true,
+        "strict": true,
+        "lib": ["ES5", "ES6", "ES2017", "ES2018", "ES2019", "ESNext", "DOM"],
+        "types": ["./types", "../node_modules/@types"]
+    },
+    "include": ["../app/*.ts", "./**/*.ts"]
+}
