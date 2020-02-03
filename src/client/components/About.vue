@@ -4,7 +4,7 @@
     <div>
       It is boilerplate of VueJS application. It includes:
       <ul>
-        <li>Server-side rendering (SSR-XXX)</li>
+        <li>Server-side rendering (SSR)</li>
         <li>Single page application</li>
         <li>Vuex state management</li>
         <li>CSS modules</li>

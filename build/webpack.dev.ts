@@ -3,7 +3,7 @@ import Path from 'path';
 import WebpackMerge from 'webpack-merge';
 import { config as baseConfig } from './webpack.base';
 
-export const config = WebpackMerge.smart(baseConfig, {
+export const config = WebpackMerge.smart({
     mode: 'development',
     devtool:'inline-source-map',
     module: {
@@ -23,4 +23,4 @@ export const config = WebpackMerge.smart(baseConfig, {
     output: {
         path: Path.resolve('./dist/dev/'),
     }
-} as Webpack.Configuration);
+}, baseConfig);

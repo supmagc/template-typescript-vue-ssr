@@ -4,7 +4,7 @@ import Path from 'path';
 import { config as baseConfig } from './webpack.base';
 import MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-export const config = WebpackMerge.smart(baseConfig, {
+export const config = WebpackMerge.smart({
     mode: 'production',
     devtool: 'nosources-source-map',
     module: {
@@ -29,4 +29,4 @@ export const config = WebpackMerge.smart(baseConfig, {
     output: {
         path: Path.resolve('./dist/prod/'),
     }
-} as Webpack.Configuration);
+}, baseConfig);

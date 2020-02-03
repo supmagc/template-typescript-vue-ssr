@@ -6,7 +6,7 @@ import { config as prodConfig } from './webpack.prod';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
 import { isProduction } from './webpack.base';
 
-let config = WebpackMerge.smart(isProduction ? prodConfig : devConfig, {
+let config = WebpackMerge.smart({
     entry: {
         client: Path.resolve(__dirname, '../src/entry-client.js'),
     },
@@ -23,6 +23,6 @@ let config = WebpackMerge.smart(isProduction ? prodConfig : devConfig, {
         },
     },
     plugins: [new VueSSRClientPlugin()],
-} as Webpack.Configuration);
+}, isProduction ? prodConfig : devConfig);
 
 export default config;

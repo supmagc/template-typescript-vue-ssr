@@ -1,5 +1,7 @@
 import Path from 'path';
 import Fs from 'fs';
+import Http from 'http';
+import Net from 'net';
 import Express from 'express';
 import Webpack from 'webpack';
 import Mfs from 'memory-fs';
@@ -93,4 +95,8 @@ server.get('*', (req: any, res: any): void => {
     });
 });
 
-server.listen(process.env.PORT || 3000);
+const serverInstance = Http.createServer(server);
+serverInstance.listen(process.env.PORT || 3000, () => {
+    const addr = serverInstance.address() as Net.AddressInfo;
+    console.log("Listening at http://%%s:%d", addr.address, addr.port);
+});
