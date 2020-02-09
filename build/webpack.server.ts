@@ -6,16 +6,19 @@ import { config as prodConfig } from './webpack.prod';
 import VueSSRServerPlugin from 'vue-server-renderer/server-plugin';
 import { isProduction } from './webpack.base';
 
-export default WebpackMerge.smart({
-    entry: {
-        server: Path.resolve(__dirname, '../src/entry-server.js'),
+export default WebpackMerge.smart(
+    {
+        entry: {
+            server: Path.resolve(__dirname, '../src/entry-server.ts'),
+        },
+        target: 'node',
+        externals: nodeExternals({
+            whitelist: /\.css$/,
+        }),
+        plugins: [new VueSSRServerPlugin()],
+        output: {
+            libraryTarget: 'commonjs2',
+        },
     },
-    target: 'node',
-    externals: nodeExternals({
-        whitelist: /\.css$/,
-    }),
-    plugins: [new VueSSRServerPlugin()],
-    output: {
-        libraryTarget: 'commonjs2',
-    },
-}, isProduction ? prodConfig : devConfig);
+    isProduction ? prodConfig : devConfig
+);

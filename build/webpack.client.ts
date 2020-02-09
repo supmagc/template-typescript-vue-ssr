@@ -6,23 +6,26 @@ import { config as prodConfig } from './webpack.prod';
 import VueSSRClientPlugin from 'vue-server-renderer/client-plugin';
 import { isProduction } from './webpack.base';
 
-let config = WebpackMerge.smart({
-    entry: {
-        client: Path.resolve(__dirname, '../src/entry-client.js'),
-    },
-    target: 'web',
-    optimization: {
-        splitChunks: {
-            chunks: 'all',
-            cacheGroups: {
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendor',
+const config = WebpackMerge.smart(
+    {
+        entry: {
+            client: Path.resolve(__dirname, '../src/entry-client.ts'),
+        },
+        target: 'web',
+        optimization: {
+            splitChunks: {
+                chunks: 'all',
+                cacheGroups: {
+                    vendor: {
+                        test: /[\\/]node_modules[\\/]/,
+                        name: 'vendor',
+                    },
                 },
             },
         },
+        plugins: [new VueSSRClientPlugin()],
     },
-    plugins: [new VueSSRClientPlugin()],
-}, isProduction ? prodConfig : devConfig);
+    isProduction ? prodConfig : devConfig
+);
 
 export default config;

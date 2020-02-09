@@ -5,13 +5,13 @@ module.exports = {
         ecmaVersion: 2019,
         sourceType: 'module',
         tsconfigRootDir: 'build/',
-        project: ['tsconfig.tests.json', 'tsconfig.build.json'],
-        extraFileExtensions: ['vue']
+        project: ['tsconfig.node.json'],
+        extraFileExtensions: ['.vue'],
     },
     env: {
         node: true,
         commonjs: true,
-        browser: true
+        browser: true,
     },
     extends: [
         'eslint:recommended',
@@ -22,7 +22,7 @@ module.exports = {
         'plugin:eslint-plugin-prettier/recommended',
         'eslint-config-prettier',
         'eslint-config-prettier/@typescript-eslint',
-        'eslint-config-prettier/vue'
+        'eslint-config-prettier/vue',
     ],
     rules: {
         'no-async-promise-executor': 'off',
@@ -31,6 +31,6 @@ module.exports = {
         '@typescript-eslint/no-misused-promises': ['error', { checksVoidReturn: false }],
         '@typescript-eslint/interface-name-prefix': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-empty-interface': 'off'
-    }
+        '@typescript-eslint/no-empty-interface': 'off',
+    },
 };

@@ -5,7 +5,7 @@ import Net from 'net';
 import Express from 'express';
 import Webpack from 'webpack';
 import Mfs from 'memory-fs';
-import { createBundleRenderer } from 'vue-server-renderer';
+import { createBundleRenderer, BundleRenderer } from 'vue-server-renderer';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 
@@ -16,6 +16,7 @@ import webpack from 'webpack';
 const server = Express();
 const isProduction = process.env.NODE_ENV === 'production';
 const srcPath = Path.resolve(__dirname, '../dist/' + (isProduction ? 'prod/' : 'dev/'));
+let renderer: BundleRenderer;
 if (!isProduction) {
     (clientConfig.entry as { client: any })['client'] = ['webpack-hot-middleware/client', (clientConfig.entry as { client: any })['client']];
     clientConfig.plugins!.push(new Webpack.HotModuleReplacementPlugin());
@@ -67,7 +68,7 @@ if (!isProduction) {
 // This new renderer will be used when HMR signals the client to request the update
 let serverBundle = JSON.parse(Fs.readFileSync(srcPath + '/vue-ssr-server-bundle.json', 'utf-8'));
 let clientManifest = JSON.parse(Fs.readFileSync(srcPath + '/vue-ssr-client-manifest.json', 'utf-8'));
-let template = require('fs').readFileSync(Path.join(__dirname, '../server/index.html'), 'utf-8');
+const template = require('fs').readFileSync(Path.join(__dirname, '../server/index.html'), 'utf-8');
 const createRenderer = () =>
     createBundleRenderer(serverBundle, {
         runInNewContext: false,
@@ -75,7 +76,7 @@ const createRenderer = () =>
         clientManifest,
         inject: false,
     });
-let renderer = createRenderer();
+renderer = createRenderer();
 
 server.use('/', Express.static(srcPath));
 server.get('*', (req: any, res: any): void => {
@@ -98,5 +99,5 @@ server.get('*', (req: any, res: any): void => {
 const serverInstance = Http.createServer(server);
 serverInstance.listen(process.env.PORT || 3000, () => {
     const addr = serverInstance.address() as Net.AddressInfo;
-    console.log("Listening at http://%%s:%d", addr.address, addr.port);
+    console.log('Listening at http://%s:%d', addr.address, addr.port);
 });

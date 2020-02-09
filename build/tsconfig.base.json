@@ -16,5 +16,6 @@
         "lib": ["ES5", "ES6", "ES2017", "ES2018", "ES2019", "ESNext", "DOM"],
         "types": ["./types", "../node_modules/@types"]
     },
-    "include": ["../app/*.ts", "./**/*.ts"]
+    "include": ["../src/**/*", "../server/**/*.ts", "./**/*.ts", "./types/**/*"],
+    "exclude": ["node_modules"]
 }

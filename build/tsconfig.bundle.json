@@ -2,6 +2,6 @@
     "extends": "./tsconfig.base.json",
     "compilerOptions": {
         "target": "ES5",
-        "module": "UMD"
+        "module": "ESNext"
     }
 }
