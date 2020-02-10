@@ -11,7 +11,7 @@
         <div :class="$style.controls">
             <input @value="title" @input="onChangeTitle" />
             <button @click="addItem">Add item</button>
-            <button @click="addAsyncItem">Add item after one second</button>
+            <button @click="">Add item after one second</button>
         </div>
     </div>
 </template>
@@ -72,7 +72,7 @@ export default class Main extends Vue {
         return this.storeAddItem(item);
     }
 
-    private onRemoveItem(e: any): any {
+    private removeItem(e: any): any {
         const id = +e.target.getAttribute('data-id');
         this.storeRemoveItem(id);
     }

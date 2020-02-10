@@ -27,11 +27,16 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import Buefy from 'buefy';
 
 Vue.use(Buefy);
 
+@Component({
+    metaInfo: {
+        meta: [{ charset: 'utf-8' }, { name: 'viewport', content: 'width=device-width, initial-scale=1' }],
+    },
+})
 export default class App extends Vue {}
 </script>
 
