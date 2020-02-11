@@ -1,17 +1,18 @@
 <template>
-    <div>
+    <div class="container">
         <h1>Shopping list</h1>
         <div v-for="item in items" :key="item.id" :class="$style.item">
             <span>{{ item.title }}</span>
             <span>
-                <button :data-id="item.id" @click="removeItem">Remove</button>
+                <button :data-id="item.id" @click="removeItemHandler">Remove</button>
             </span>
         </div>
 
         <div :class="$style.controls">
-            <input @value="title" @input="onChangeTitle" />
-            <button @click="addItem">Add item</button>
-            <button @click="">Add item after one second</button>
+            <b-field label="Title">
+                <b-input v-model="title"></b-input>
+            </b-field>
+            <b-button @click="addItemHandler">Add Item</b-button>
         </div>
     </div>
 </template>
@@ -28,6 +29,8 @@ const itemsModule = namespace('Items');
     },
 })
 export default class Main extends Vue {
+    private title = 'StartValue';
+
     @itemsModule.State
     private items!: [{ id: number; title: string }];
 
@@ -36,13 +39,6 @@ export default class Main extends Vue {
 
     @itemsModule.Mutation('removeItem')
     private storeRemoveItem!: (id: number) => void;
-    /*
-    computed: {
-        ...mapState({
-            items: state => state.main.items,
-        }),
-    },
-    */
 
     private mounted(): void {
         console.log('Mounted');
@@ -52,27 +48,16 @@ export default class Main extends Vue {
         console.log('Run only on server');
     }
 
-    /*
-    private addAsyncItem(): void {
+    private addItemHandler(): void {
         const item = {
             id: Math.floor(Math.random() * 100),
-            title: this.$data.title,
+            title: '' + this.title,
         };
 
-        this.$store.dispatch(MAIN__ITEM_ADD_ASYNC, { item });
-    }
-*/
-
-    private addItem(): any {
-        const item = {
-            id: Math.floor(Math.random() * 100),
-            title: '' + this.$data.title,
-        };
-
-        return this.storeAddItem(item);
+        this.storeAddItem(item);
     }
 
-    private removeItem(e: any): any {
+    private removeItemHandler(e: any): void {
         const id = +e.target.getAttribute('data-id');
         this.storeRemoveItem(id);
     }

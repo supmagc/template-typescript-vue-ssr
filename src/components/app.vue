@@ -1,25 +1,17 @@
 <template>
     <div>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="container">
-                <div class="navbar-menu">
-                    <div class="navbar-start">
-                        <router-link to="/" class="navbar-item">Main</router-link>
-                        <router-link to="/about" class="navbar-item">About</router-link>
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
-                                Dropdown
-                            </a>
-
-                            <div class="navbar-dropdown">
-                                <router-link to="/programs" class="navbar-item">Main</router-link>
-                                <router-link to="/projects" class="navbar-item">About</router-link>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </nav>
+        <b-navbar :shadow="true">
+            <template #start>
+                <b-navbar-item tag="router-link" to="/">Main</b-navbar-item>
+                <b-navbar-item tag="router-link" to="/about">About</b-navbar-item>
+            </template>
+            <template #end>
+                <b-navbar-dropdown label="Dropdown">
+                    <b-navbar-item tag="router-link" to="/programs">Main</b-navbar-item>
+                    <b-navbar-item tag="router-link" to="/projects">About</b-navbar-item>
+                </b-navbar-dropdown>
+            </template>
+        </b-navbar>
         <div class="container">
             <router-view></router-view>
         </div>
